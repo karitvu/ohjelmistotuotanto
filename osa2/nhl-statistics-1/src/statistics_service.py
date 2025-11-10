@@ -1,4 +1,4 @@
-from player_reader import PlayerReader
+#from player_reader import PlayerReader
 
 
 
