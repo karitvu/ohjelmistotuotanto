@@ -16,7 +16,9 @@ class ProjectReader:
         testi = toml.loads(content)
         nimi = testi['tool']['poetry']['name']
         des = testi['tool']['poetry']['description']
+        lisenssi = testi['tool']['poetry']['license']
+        aut = testi['tool']['poetry']['authors']
         dep = list(testi['tool']['poetry']['dependencies'].keys())
         devdep = list(testi['tool']['poetry']['group']['dev']['dependencies'].keys())
 
-        return Project(nimi, des, dep, devdep)
+        return Project(nimi, des, lisenssi, aut, dep, devdep)
