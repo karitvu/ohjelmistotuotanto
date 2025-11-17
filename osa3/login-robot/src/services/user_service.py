@@ -1,3 +1,4 @@
+import re
 from entities.user import User
 
 
@@ -38,3 +39,26 @@ class UserService:
             raise UserInputError("Username and password are required")
 
         # toteuta loput tarkastukset tänne ja nosta virhe virhetilanteissa
+
+        #pituus
+        if len(str(username)) < 3:
+            raise UserInputError("Username is fewer than 3 letters")
+        
+        user = self._user_repository.find_by_username(username)
+
+        #sama nimi
+        if user:
+            raise AuthenticationError(f"User with username {user.username} already exists")
+        
+        #jotain muuta kuin a-z
+        if not re.match("^[a-z]+$", username):
+            raise UserInputError("Username is allowed to contain lowercase letters only")
+        
+        #lyhyt salasana
+        if len(str(password)) < 8:
+             raise UserInputError("Password is too short")
+        
+        #salasanassa ei numeroita
+        if re.match("^[a-z]+$", password):
+            raise UserInputError("Password should include numbers")
+
